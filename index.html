@@ -3,30 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Valentine's Day!</title>
+    <title>Will You Be My Valentine?</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #ffcccb;
-            color: #a00000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fce4ec; /* Soft pink background */
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            overflow: hidden; /* Prevents scrollbars when button moves */
+        }
+
+        .container {
             text-align: center;
-            padding: 50px;
+            position: relative;
         }
+
         h1 {
-            font-size: 48px;
+            color: #d81b60;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
         }
-        p {
-            font-size: 24px;
+
+        .gif-container {
+            margin-bottom: 20px;
         }
-        .heart {
-            color: red;
-            font-size: 100px;
+        
+        img {
+            width: 200px;
+            border-radius: 10px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        #yesBtn {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        #yesBtn:hover {
+            background-color: #45a049;
+            transform: scale(1.1);
+        }
+
+        #noBtn {
+            background-color: #f44336; /* Red */
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: absolute; /* Allows free movement */
+        }
+
+        /* Hidden message class */
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <h1>Happy Valentine’s Day!</h1>
-    <p>Spread love and joy.</p>
-    <p class="heart">❤️</p>
+
+    <div class="container">
+        <div class="gif-container">
+            <img id="mainImage" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmM5Znc1ZXV0aHZ2ZzQ2Mnh2MWY1cnR2aGR4bWh6Z3Z2aG16aG16eiZlcD12MV9zdGlja2Vyc19yZWxhdGVkJmN0PXM/h7bu7vHq5R7C8/giphy.gif" alt="Cute Bear">
+        </div>
+
+        <h1 id="question">Will you be my Valentine?</h1>
+        
+        <div class="buttons">
+            <button class="btn" id="yesBtn">Yes</button>
+            <button class="btn" id="noBtn">No</button>
+        </div>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const question = document.getElementById('question');
+        const mainImage = document.getElementById('mainImage');
+
+        // What happens when she clicks YES
+        yesBtn.addEventListener('click', () => {
+            question.innerHTML = "Yay! I knew you'd say yes! ❤️";
+            // Change the image to a happy one
+            mainImage.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3IzODV6bW03aXk1bm14Y281aG42c2h5Z3B3bnhqOXh6bTlzbHk2ZCZlcD12MV9zdGlja2Vyc19yZWxhdGVkJmN0PXM/iCVzZwwE6QhFPCnht2/giphy.gif";
+            
+            // Hide the buttons
+            yesBtn.style.display = 'none';
+            noBtn.style.display = 'none';
+            
+            // Optional: Add confetti effect here if desired
+        });
+
+        // What happens when she tries to click NO
+        function moveButton() {
+            // Get the window dimensions
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+
+            // Get the button dimensions
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+
+            // Calculate random positions ensuring the button stays within screen
+            const randomX = Math.random() * (windowWidth - btnWidth);
+            const randomY = Math.random() * (windowHeight - btnHeight);
+
+            // Apply new position
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        // Trigger movement on mouse hover (Desktop)
+        noBtn.addEventListener('mouseover', moveButton);
+        
+        // Trigger movement on touch (Mobile)
+        noBtn.addEventListener('touchstart', moveButton);
+    </script>
 </body>
 </html>
